@@ -1,0 +1,21 @@
+package br.com.caelum.vraptor.controller;
+
+import javax.persistence.EntityManager;
+
+import br.com.caelum.vraptor.Controller;
+import br.com.caelum.vraptor.Path;
+import br.com.caelum.vraptor.util.JPAUtil;
+
+@Controller
+public class ProdutoController {
+	
+	@Path("/produto/sobre")
+	public void sobre() {
+		
+	}
+	
+	@Path("/produto/lista")
+	public EntityManager lista() {
+		 return JPAUtil.criaEntityManager();
+	}
+}

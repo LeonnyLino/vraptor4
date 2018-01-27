@@ -1,0 +1,55 @@
+package br.com.caelum.livraria.modelo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.bean.ViewScoped;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+@Entity
+@ViewScoped
+public class Autor {
+
+	@Id
+	@GeneratedValue
+	private Integer id;
+	private String nome;
+	@ManyToMany(fetch=FetchType.EAGER)
+	private List<Livro> livros = new ArrayList<Livro>();
+	
+	public List<Livro> getLivros(){
+		return livros;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public void removerLivro(Livro livro) {
+		this.livros.remove(livro);
+	}
+
+	@Override
+	public String toString() {
+		return "Autor [nome=" + nome + "]";
+	}
+	
+	
+
+}

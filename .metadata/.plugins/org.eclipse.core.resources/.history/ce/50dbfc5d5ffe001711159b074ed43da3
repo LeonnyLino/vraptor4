@@ -1,0 +1,50 @@
+package br.com.caelum.livraria.bean;
+
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+
+import br.com.caelum.livraria.dao.DAO;
+import br.com.caelum.livraria.modelo.Autor;
+import br.com.caelum.livraria.util.RedirectView;
+
+@ManagedBean
+@ViewScoped
+public class AutorBean {
+
+	private Autor autor = new Autor();
+
+	public Autor getAutor() {
+		return autor;
+	}
+	
+	public List<Autor> getAutores(){
+		return new DAO<Autor>(Autor.class).listaTodos();
+	}
+	
+	public RedirectView remover(Autor autor) {
+		System.out.println("Removendo Autor: " + autor.getNome());
+		if(!autor.getLivros().isEmpty()) {
+			FacesContext.getCurrentInstance().addMessage("livro", new FacesMessage("Antes de remover o autor, remova o mesmo de todos os livros que estar relacionado!"));
+			return new RedirectView("livro");
+		}else {
+			new DAO<Autor>(Autor.class).remove(autor);
+		}
+		return null;
+		
+	}
+	
+
+	public RedirectView gravar() {
+		System.out.println("Gravando autor " + this.autor.getNome());
+
+		new DAO<Autor>(Autor.class).adiciona(this.autor);
+		
+		this.autor = new Autor();
+		
+		return new RedirectView("livro");
+	}
+}
