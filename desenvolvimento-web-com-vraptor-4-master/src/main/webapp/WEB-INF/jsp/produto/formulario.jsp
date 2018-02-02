@@ -12,11 +12,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="<c:url value='/produto/adiciona'/>">
-		Nome: <input type="text" name="produto.nome" class="form-control"/>
-		Valor: <input type="text" name="produto.valor" class="form-control"/>
-		Quantidade: <input type="text" name="produto.quantidade" class="form-control"/>
-		<input type="submit" value="Adicionar" class="btn btn-primary"/>
-	</form>
+	<div>
+		<form action="adiciona" method="post">
+			Nome: <input type="text" name="produto.nome" class="form-control"/>
+			Valor: <input type="text" name="produto.valor" class="form-control"/>
+			Quantidade: <input type="text" name="produto.quantidade" class="form-control"/>
+			<input type="submit" value="Adicionar" class="btn btn-primary"/>
+		</form>
+	</div>
 </body>
 </html>

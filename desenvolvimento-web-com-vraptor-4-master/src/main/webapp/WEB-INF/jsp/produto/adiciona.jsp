@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Produto adicionado com Sucesso!</h1>
-	<a href="<c:url value='/produto/lista'/>">
+	<a href="lista">
     	Lista de produtos!
 	</a>
 </body>

@@ -11,7 +11,7 @@
 <body>
 	<h1>Livro Removido com Sucesso!</h1>
 	
-	<a href="<c:url value='/produto/lista'/>">
+	<a href="<c:url value='/produto/formulario'/>">
     	Adicionar mais produtos!
 	</a>
 </body>
