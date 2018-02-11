@@ -1,19 +1,30 @@
 package br.com.caelum.vraptor.controller;
 
-import java.util.List;
-
-import javax.ejb.Remove;
-import javax.persistence.EntityManager;
+import javax.inject.Inject;
 
 import br.com.caelum.vraptor.Controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Post;
+import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.dao.ProdutoDao;
 import br.com.caelum.vraptor.model.Produto;
-import br.com.caelum.vraptor.util.JPAUtil;
+import br.com.caelum.vraptor.view.Results;
 
 @Controller
 public class ProdutoController {
+	
+	private final Result result;
+	private final ProdutoDao dao;
+	
+	@Inject
+	public ProdutoController(Result result, ProdutoDao dao) {
+		this.result = result;
+		this.dao = dao;
+	}
+	
+	public ProdutoController() {
+		this(null, null);
+	}
 	
 	@Get
 	public void sobre() {
@@ -21,10 +32,18 @@ public class ProdutoController {
 	}
 	
 	@Get
-	public List<Produto> lista() {
-		 EntityManager em = JPAUtil.criaEntityManager();
-		 ProdutoDao produtoDao = new ProdutoDao(em);
-		 return produtoDao.lista();
+	public void lista() {
+		 result.include("produtoList", dao.lista());
+	}
+	
+	@Get
+	public void listaJson() {
+		result.use(Results.json()).from(dao.lista()).serialize();
+	}
+	
+	@Get
+	public void listaXML() {
+		result.use(Results.xml()).from(dao.lista()).serialize();
 	}
 	
 	@Get
@@ -34,21 +53,17 @@ public class ProdutoController {
 	
 	@Post
 	public void adiciona(Produto produto) {
-		EntityManager em = JPAUtil.criaEntityManager();
-		em.getTransaction().begin();
-		ProdutoDao dao = new ProdutoDao(em);
 		dao.adiciona(produto);
-		em.getTransaction().commit();
+		result.include("mensagem", "Protudo Adicionado com sucesso!");
+		result.redirectTo(this).lista();
 		
 	}
 	
-	@Remove
+	@Get
 	public void remove(Produto produto) {
-		EntityManager em = JPAUtil.criaEntityManager();
-		em.getTransaction().begin();
-		ProdutoDao dao = new ProdutoDao(em);
 		dao.remove(produto);
-		em.getTransaction().commit();
+		result.include("mensagem", "Protudo Removido com sucesso!");
+		result.redirectTo(this).lista();
 		
 	}
 	

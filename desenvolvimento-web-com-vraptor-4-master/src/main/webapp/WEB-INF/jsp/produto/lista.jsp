@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Listagem de produtos</title>
 </head>
 <body>
 	<h1>Listagem de produtos</h1>
@@ -33,5 +33,8 @@
     <a href="<c:url value='/produto/formulario'/>">
     	Adicionar mais produtos!
 	</a>
+	<div class="alert alert-success">${mensagem}</div>
+	<a href="<c:url value='/produto/listaJson'/>">Lista em JSON</a><br/>
+	<a href="<c:url value='/produto/listaXML'/>">Lista em XML</a>
 </body>
 </html>
