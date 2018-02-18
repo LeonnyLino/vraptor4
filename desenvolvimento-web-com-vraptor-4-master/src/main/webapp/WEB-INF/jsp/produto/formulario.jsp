@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div>
+	<div class="container">
 		<form action="adiciona" method="post">
 			Nome: <input type="text" name="produto.nome" value="${produto.nome}" class="form-control"/>
 			Valor: <input type="text" name="produto.valor" value="${produto.valor}" class="form-control"/>
