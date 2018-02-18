@@ -9,7 +9,7 @@
 <title>Listagem de produtos</title>
 </head>
 <body>
-	<h1>Listagem de produtos</h1>
+	<h1>Listagem de produtos do ${sessaoUsuario.usuario.nome}</h1>
 
     <table class="table table-striped table-bordered table-hover">
         <thead>

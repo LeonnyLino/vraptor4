@@ -8,6 +8,8 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.dao.ProdutoDao;
 import br.com.caelum.vraptor.model.Produto;
+import br.com.caelum.vraptor.validator.I18nMessage;
+import br.com.caelum.vraptor.validator.Validator;
 import br.com.caelum.vraptor.view.Results;
 
 @Controller
@@ -15,15 +17,17 @@ public class ProdutoController {
 	
 	private final Result result;
 	private final ProdutoDao dao;
+	private final Validator validator;
 	
 	@Inject
-	public ProdutoController(Result result, ProdutoDao dao) {
+	public ProdutoController(Result result, ProdutoDao dao, Validator validator) {
 		this.result = result;
 		this.dao = dao;
+		this.validator = validator;
 	}
 	
 	public ProdutoController() {
-		this(null, null);
+		this(null, null, null);
 	}
 	
 	@Get
@@ -53,6 +57,10 @@ public class ProdutoController {
 	
 	@Post
 	public void adiciona(Produto produto) {
+		
+		validator.check(produto.getQuantidade() > 0, new I18nMessage("erro", "produto.quantidade.negativa"));
+		validator.onErrorUsePageOf(this).formulario();
+		
 		dao.adiciona(produto);
 		result.include("mensagem", "Protudo Adicionado com sucesso!");
 		result.redirectTo(this).lista();

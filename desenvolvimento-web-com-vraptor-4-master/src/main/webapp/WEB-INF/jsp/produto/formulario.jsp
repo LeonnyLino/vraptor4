@@ -14,11 +14,18 @@
 <body>
 	<div>
 		<form action="adiciona" method="post">
-			Nome: <input type="text" name="produto.nome" class="form-control"/>
-			Valor: <input type="text" name="produto.valor" class="form-control"/>
-			Quantidade: <input type="text" name="produto.quantidade" class="form-control"/>
+			Nome: <input type="text" name="produto.nome" value="${produto.nome}" class="form-control"/>
+			Valor: <input type="text" name="produto.valor" value="${produto.valor}" class="form-control"/>
+			Quantidade: <input type="text" name="produto.quantidade" value="${produto.quantidade}" class="form-control"/>
 			<input type="submit" value="Adicionar" class="btn btn-primary"/>
 		</form>
 	</div>
+	<c:if test="${not empty errors}">
+		<div class="alert alert-danger">
+			<c:forEach items="${errors}" var="erro">
+				${error.category} - ${erro.message}<br/>
+			</c:forEach>
+		</div>
+	</c:if>
 </body>
 </html>
